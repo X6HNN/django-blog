@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block articles %}
+<h1>My not`es</h1>
+    {% for article in all_articles %}
+        <h3><a href="/articles/get/{{ article.id }}/">{{ article.article_title }}</a></h3>
+        <h4>{{ article.article_date }}</h4>
+        <hr>
+        <img src="{% static "img/" %}{{ article.article_title_img }}" class="img-responsive" alt="post img">
+        <p>{{ article.article_description }}</p>
+        <hr>
+    {% endfor %}
+        <div>
+            <ul class="pagination">
+                <!-- Если пагинация задана-->
+                {% if is_paginated %}
+                    {% if page_obj.has_previous %}
+                        <li class="arrow"><a href="/posts?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                    {% else %}
+                        <!-- иначе отображаем, но блокируем переход-->
+                        <li class="arrow unavailable"><a href="">&laquo;</a></li>
+                    {% endif %}
+                    <!-- конец для предыдущей проверок и отрисовок для предыдущей стрелочки-->
+                    <!-- Выводим нумерацию всех страничек нарезаных пагинатором-->
+                    {% for page in page_obj.paginator.page_range %}
+                        {% if page == page_obj.number %}
+                            <li class="current"><a href="/posts?page={{ page }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="/posts?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Делаем стрелочку перехода на следующую страницу-->
+                    {% if page_obj.has_next %}
+                        <li class="arrow"><a href="/posts?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    {% else %}
+                        <!-- Если крайний элимент, то блокируем-->
+                        <li class="arrow unavailable"><a href="">&raquo;</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+{% endblock %}

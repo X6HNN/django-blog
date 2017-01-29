@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+{% block article %}
+    <a href="{{ return_path }}">Вернуться</a>
+    <a href="/posts?page={{ page }}">Вернуться 2</a>
+    <h2>{{ article.article_title }}</h2>
+    <p>Дата публикации: {{ article.article_date }}</p>
+    <img src="{% static "img/" %}{{ article.article_title_img }}" class="img-responsive" alt="post img">
+    <p>{{ article.article_text }}</p>
+        <form action="/article/addcomment/{{ article.id }}/" method="post">
+    {% csrf_token %}  <!--токен для проверки безопасности-->
+            <h2>Оставить комментарий</h2>
+    {{ form }}
+            <br><br>
+        <input type="submit" class="btn btn-primary" vulue="отправить">
+    </form>
+            <h2>Комментарии</h2>
+    <hr>
+    {% if comments %}
+    {% for commit in comments %}
+        {{ commit.comments_text }}<hr>
+    {% endfor %}
+        {% else %}
+        <p>Здесь пока пусто:(</p>
+    {% endif %}
+{% endblock %}

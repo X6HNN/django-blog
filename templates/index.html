@@ -1,0 +1,124 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{% static "/static/css/bootstrap.css" %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static "/static/css/custom.css" %}" rel="stylesheet">
+
+    <!-- javascript -->
+    <script src="{% static "/static/js/respond.js" %}"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="{% static "/static/js/bootstrap.min.js" %}"></script>
+    <title>Home</title>
+</head>
+<body>
+    <!--<div id="logo"><h1>My not`es</h1></div>-->
+    <div id="navigation">
+        <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="widget-top">
+                <a href="mailto:postmailmr@gmail.com"><img src="{% static "img/" %}email.ico" width="32" height="32"alt=""></a>
+                <a href="#facebook"><img src="{% static "img/" %}facebook.ico" width="32" height="32"alt=""></a>
+                <a href="https://github.com/X6HNN"><img src="{% static "img/" %}github.ico" width="32" height="32"alt=""></a>
+                <!--<a href="#"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></a>-->
+                <!--<a href="#"><img src="img/search-icon.png" alt=""></a>-->
+            </div>
+              <div class="container-fluid">
+                <!--Название сайта и кнопка раскрытия меню для мобильных-->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+
+                <!--Само меню-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/works/">Работы</a></li>
+                    <li><a href="/about/">Обо мне</a></li>
+                    <!-- кастыль беда печаль, исправить мб с помошью деталивью -->
+                        {% if user.is_authenticated or username%}
+                                <li><a href="/auth/logout/">Выйти ({{ user.username }}{{ username }})</a></li>
+                            {% else %}
+                                <li><a href="/auth/login/">Войти</a></li>
+                        {% endif %}
+                </ul>
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+        </nav>
+        </div>
+    </div>
+    <div class="container">
+       <div class="col-md-9 col-xs-12 ">
+       <div class="articals">
+                {% block articles %}{% endblock %}
+                {% block article %}{% endblock %}
+                {% block about_me %}{% endblock %}
+                {% block login %}{% endblock %}
+       </div>
+       </div>
+        <!--http://placehold.it/800x450-->
+       <div class="col-md-3 col-xs-12 ">
+           <div id="sidebar">
+               <div class="section">
+                <h2>Категории</h2>
+                   <ul>
+                       <li>Python</li>
+                       <li>Django</li>
+                       <li>HTML5 & CSS3</li>
+                       <li>JS</li>
+                       <li>PHP</li>
+                   </ul>
+               </div>
+               <div class="section">
+                   <h2>Архив</h2>
+                   <ul>
+                       <li>2017</li>
+                       <li>2016</li>
+                       <li>2015</li>
+                   </ul>
+               </div>
+           </div>
+       </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+           <div class="col-sm-6">
+               <h2>Связаться со мной</h2>
+               <hr>
+               <div class="section">
+                  <p><img src="{% static "img/" %}github.ico" width="32" height="32"alt=""> <a href="https://github.com/X6HNN">GitHub</a></p>
+                  <p><img src="{% static "img/" %}email.ico" width="32" height="32"alt=""> <a href="mailto:postmailmr@gmail.com">postmailmr@gmail.com</a></p>
+                  <p><img src="{% static "img/" %}facebook.ico" width="32" height="32"alt=""> <a href="#">Facebook</a></p>
+               </div>
+           </div>
+           <div class="col-sm-6">
+               <h2>Теги</h2>
+               <hr>
+                <div class="section">
+                   <ul>
+                       <li>Python</li>
+                       <li>Django</li>
+                       <li>HTML5 & CSS3</li>
+                       <li>JS</li>
+                       <li>PHP</li>
+                   </ul>
+               </div>
+           </div>
+            <div class="col-md-12">
+               <hr>
+                <div class="footer-link">&#169; hostname.com 2017. Powered by <a href="https://github.com/X6HNN">X6HNN</a>.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
